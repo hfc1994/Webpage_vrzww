@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vrzww.mapper.CommentMapperCustom">
+    
+    <select id="getCommentList" resultType="com.vrzww.po.CommentCustom">
+        select 
+        comment.* 
+        from 
+        comment
+    </select>
+    
+    <select id="getCommentListById" parameterType="int"
+         resultType="com.vrzww.po.CommentCustom">
+        select 
+        comment.* 
+        from 
+        comment
+        where
+        comment.cId = 
+        #{cid}
+    </select>
+    
+    <select id="getCommentListByUId" parameterType="int"
+         resultType="com.vrzww.po.CommentCustom">
+        select 
+        comment.* 
+        from 
+        comment
+        where
+        comment.uId = 
+        #{uid}
+    </select>
+    
+    <select id="getCommentListByAId" parameterType="int"
+         resultType="com.vrzww.po.CommentCustom">
+        select 
+        comment.* 
+        from 
+        comment
+        where
+        comment.aId = 
+        #{aid}
+    </select>
+    
+    <select id="getCommentListByPId" parameterType="int"
+         resultType="com.vrzww.po.CommentCustom">
+        select 
+        comment.* 
+        from 
+        comment
+        where
+        comment.pId = 
+        #{pid}
+    </select>
+    
+    <select id="getCommentExist" resultType="com.vrzww.po.CommentCustom">
+        select 
+        comment.* 
+        from 
+        comment
+        where
+        comment.deleteState = 1
+        order by
+        postTime desc
+        limit #{0},#{1}
+    </select>
+    
+    <select id="getCommentDeleted" resultType="com.vrzww.po.CommentCustom">
+        select 
+        comment.* 
+        from 
+        comment
+        where
+        comment.deleteState = 0
+        order by
+        postTime desc
+        limit #{0},#{1}
+    </select>
+    
+    <update id="deleteById" parameterType="Integer">
+        update
+        comment
+        set
+        comment.deleteState = 0
+        where
+        comment.cId = #{id}
+    </update>
+    
+     <update id="deleteByUId" parameterType="Integer">
+        update
+        comment
+        set
+        comment.deleteState = 0
+        where
+        comment.uId = #{uid}
+    </update>
+    
+     <update id="deleteByAId" parameterType="Integer">
+        update
+        comment
+        set
+        comment.deleteState = 0
+        where
+        comment.aId = #{aid}
+    </update>
+    
+    <update id="recoverById" parameterType="Integer">
+        update
+        comment
+        set
+        comment.deleteState = 1
+        where
+        comment.cId = #{id}
+    </update>
+    
+     <update id="recoverByUId" parameterType="Integer">
+        update
+        comment
+        set
+        comment.deleteState = 1
+        where
+        comment.uId = #{uid}
+    </update>
+    
+    <update id="recoverByAId" parameterType="Integer">
+        update
+        comment
+        set
+        comment.deleteState = 1
+        where
+        comment.aId = #{aid}
+    </update>
+    
+    <resultMap type="com.vrzww.po.CommentList" id="CommentListMap">
+        <id column="cid" property="cid"/>
+        <result column="uid" property="uid"/>
+        <result column="aid" property="aid"/>
+        <result column="pid" property="pid"/>
+        <result column="content" property="content"/>
+        <result column="posttime" property="posttime"/>
+        <result column="isleaf" property="isleaf"/>
+        <result column="deletestate" property="deletestate"/>
+        
+        <association property="user" javaType="com.vrzww.po.User">
+            <id column="uid" property="uid"/>
+            <result column="username" property="username"/>
+            <result column="headportrait" property="headportrait"/>
+        </association>
+    </resultMap>
+    
+    <select id="getCommentsListByAId" resultMap="CommentListMap">
+        select 
+        comment.*,
+        user.uId, 
+        user.username,
+        user.headPortrait
+        from 
+        comment,
+        user
+        where
+        comment.pId = 0
+        and
+        comment.deleteState = 1
+        and
+        comment.aId = #{0}
+        and
+        comment.uId = user.uId
+        limit #{1},#{2}
+    </select>
+    
+     <select id="getCommentListByLeaf" resultMap="CommentListMap">
+        select 
+        comment.*,
+        user.uId, 
+        user.username,
+        user.headPortrait
+        from 
+        comment,
+        user
+        where
+        comment.pId = #{0}
+        and
+        comment.deleteState = 1
+        and
+        comment.aId = #{1}
+        and
+        comment.uId = user.uId
+    </select>
+    
+    <insert id="setComment" useGeneratedKeys="true">
+        insert
+        into
+        comment(aId,uId,pId,content,postTime,isLeaf,deleteState)
+        values(#{0},#{1},#{2},#{3},now(),#{4},1)
+    </insert>
+    
+    <update id="setCommentLeaf">
+        update
+        comment
+        set
+        comment.isLeaf = 1
+        where
+        comment.cId = #{0}
+    </update>
+</mapper>

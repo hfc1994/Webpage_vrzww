@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vrzww.mapper.ArticleMapperCustom">
+ 
+    <select id="getArticleList" resultType="com.vrzww.po.ArticleCustom">
+        select 
+        article.* 
+        from 
+        article
+        where 
+        deleteState = 1
+    </select>
+    
+    <select id="getArticleListExist" resultType="com.vrzww.po.ArticleCustom">
+        select 
+        article.* 
+        from 
+        article
+        where 
+        deleteState = 1
+        order by
+        publishTime desc
+        limit #{0},#{1}
+    </select>
+
+    <select id="getArticleListDeleted" resultType="com.vrzww.po.ArticleCustom">
+        select 
+        article.* 
+        from 
+        article
+        where 
+        deleteState = 0
+        order by
+        publishTime desc
+        limit #{0},#{1}
+    </select>
+    
+    <select id="getArticleListById" parameterType="java.util.List"
+        resultType="com.vrzww.po.ArticleCustom">
+        select 
+        article.* 
+        from 
+        article
+        <where>
+            <if test="list!=null">
+                <foreach collection="list" item="list" open=" aId in (" close=")" separator=",">
+                    #{list.aid}
+                </foreach> 
+            </if>
+        </where>
+        and
+        deleteState = 1
+    </select>
+    
+    <select id="getArticleLimitList" resultType="com.vrzww.po.ArticleCustom">
+        select 
+        article.* 
+        from 
+        article
+        where 
+        deleteState = 1
+        order by
+        publishTime desc
+        limit #{0},#{1}
+        
+    </select>
+    
+    <select id="getArticleLimitListById" resultType="com.vrzww.po.ArticleCustom">
+        select 
+        article.* 
+        from 
+        article
+        <where>
+            <if test="categoryCustom!=null">
+                <foreach collection="categoryCustom" item="categoryCustom" open=" aId in (" close=")" separator=",">
+                    #{categoryCustom.aid}
+                </foreach>
+            </if>
+        </where>
+        and
+        deleteState = 1
+        order by
+        publishTime desc
+        limit #{start},#{offset}
+    </select>
+    
+    <select id="getArticleContentById" parameterType="Integer"
+         resultType="com.vrzww.po.ArticleCustom">
+        select
+        article.*
+        from
+        article
+        where
+        article.aId = #{0}
+        and
+        deleteState = 1
+    </select>
+    
+    <select id="getArticleContentByIdNoLimit" parameterType="Integer"
+         resultType="com.vrzww.po.ArticleCustom">
+        select
+        article.*
+        from
+        article
+        where
+        article.aId = #{0}
+    </select>
+    
+    <update id="deleteById" parameterType="Integer">
+        update
+        article
+        set
+        article.deleteState = 0
+        where 
+        article.aId = #{id}
+    </update>
+    
+     <update id="recoverById" parameterType="Integer">
+        update
+        article
+        set
+        article.deleteState = 1
+        where 
+        article.aId = #{id}
+    </update>
+
+    <insert id="setArticle" useGeneratedKeys="true" keyProperty="aid" parameterType="com.vrzww.po.Article">
+        insert
+        into
+        article(source,author,publishTime,title,content,mainPic,likes,deleteState)
+        values(#{source},#{author},now(),#{title},#{content},#{mainpic},0,1)
+    </insert>
+    
+    <update id="setLikesByAId">
+        update
+        article
+        set
+        article.likes = #{1}
+        where
+        article.aId = #{0}
+    </update>
+</mapper>
