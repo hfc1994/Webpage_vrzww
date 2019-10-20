@@ -937,8 +937,8 @@ function showHeadIcon(uid,uri_head,head,username)
 {
 	if(uid != 'null')
 	{
-		var html = '<a title="selfService" href='+uri_head+'/selfService.jsp><img alt="头像" src="'+
-					head+'" style="width:48px;height:48px;"></a>';
+		var html = '<a title="selfService" href='+uri_head+'/selfService.jsp><img alt="头像" src="' 
+					+ uri_head + '/' + head+'" style="width:48px;height:48px;"></a>';
         var html2 = '<em>'+username+'</em>'
 		document.getElementById("logout").style.display="";
         document.getElementById("username").style.display="";

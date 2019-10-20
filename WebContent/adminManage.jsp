@@ -69,7 +69,7 @@ $(document).ready(function(){
 								<li> 
 									<div class="entryImg">
 
-										<img width="360" height="360" src="${user.headportrait } "
+										<img width="360" height="360" src="<%=request.getContextPath() %>/${user.headportrait } "
 											class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
 											alt="show.jpg" sizes="(max-width: 360px) 100vw, 360px" />
 										</a> 		

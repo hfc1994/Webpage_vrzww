@@ -30,7 +30,7 @@ CREATE TABLE `article` (
   `likes` int(16) DEFAULT NULL,
   `deleteState` char(1) NOT NULL,
   PRIMARY KEY (`aId`)
-) ENGINE=InnoDB AUTO_INCREMENT=1010040 DEFAULT CHARSET=utf-8;
+) ENGINE=InnoDB AUTO_INCREMENT=1010040 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of article
@@ -69,7 +69,7 @@ CREATE TABLE `category` (
   `categoryId` int(16) NOT NULL,
   `aId` int(16) NOT NULL,
   PRIMARY KEY (`cId`)
-) ENGINE=InnoDB AUTO_INCREMENT=100028 DEFAULT CHARSET=utf-8;
+) ENGINE=InnoDB AUTO_INCREMENT=100028 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of category
@@ -116,7 +116,7 @@ CREATE TABLE `comment` (
   `isLeaf` char(1) NOT NULL,
   `deleteState` char(1) NOT NULL,
   PRIMARY KEY (`cId`)
-) ENGINE=InnoDB AUTO_INCREMENT=600075 DEFAULT CHARSET=utf-8;
+) ENGINE=InnoDB AUTO_INCREMENT=600075 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of comment
@@ -202,7 +202,7 @@ CREATE TABLE `test` (
   `test` int(10) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`test`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf-8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of test
@@ -226,7 +226,7 @@ CREATE TABLE `user` (
   `headPortrait` varchar(128) DEFAULT NULL,
   `deleteState` char(1) NOT NULL,
   PRIMARY KEY (`uId`)
-) ENGINE=InnoDB AUTO_INCREMENT=10009 DEFAULT CHARSET=utf-8;
+) ENGINE=InnoDB AUTO_INCREMENT=10009 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user

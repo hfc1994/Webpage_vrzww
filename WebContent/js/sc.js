@@ -6,7 +6,7 @@ var scrolltotop = {
 		fadeduration : [ 500, 100 ]
 	// 淡出淡现消失
 	},
-	controlHTML : '<img src="/img/topback.png" style="width:44px; height:44px; border:0;" />', 
+	controlHTML : '<img src="./../img/topback.png" style="width:44px; height:44px; border:0;" />', 
 	controlattrs : {
 		offsetx : 30,
 		offsety : 20
